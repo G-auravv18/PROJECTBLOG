@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/mobile.css">
     <title>WeBlog - Heaven for bloggers</title>
 </head>
+
 <body>
     <nav class="navigation max-width-1 m-auto">
         <div class="nav-left">
@@ -25,11 +26,9 @@
         <div class="nav-right">
             <form action="/search.html" method="get">
                 <input class="form-input" type="text" name="query" placeholder="Article Search">
-                <button type ="btn">Search</button>
+                <button type="submit">Search</button>
             </form>
-
         </div>
-
     </nav>
     <div class="max-width-1 m-auto">
         <hr>
@@ -38,33 +37,49 @@
         <div class="max-width-1 m-auto mx-1">
             <h2>Feel Free to Contact Us : </h2>
             <div class="contact-form">
-                <div class="form-box">
-                    <input type="text" placeholder="Enter Your Name">
-                </div>
-                <div class="form-box">
-                    <input type="text" placeholder="Enter Your Phone Number">
-                </div>
-                <div class="form-box">
-                    <input type="text" placeholder="Enter Your Email Id">
-                </div>
-                <div class="form-box">
-                    <textarea name="" id="" cols="10" rows="10" placeholder="How may we help you?"></textarea>
-                </div>
-                <div class="form-box">
-                    <button type="submit">Submit</button>
-                </div>
-
+                <form onsubmit="sendemail(); return false;">
+                    <div class="form-box">
+                        <input type="text" id="name" placeholder="Enter Your Name">
+                    </div>
+                    <div class="form-box">
+                        <input type="text" id="phone" placeholder="Enter Your Phone Number">
+                    </div>
+                    <div class="form-box">
+                        <input type="text" id="email" placeholder="Enter Your Email Id">
+                    </div>
+                    <div class="form-box">
+                        <textarea id="message" cols="10" rows="10" placeholder="How may we help you?"></textarea>
+                    </div>
+                    <div class="form-box">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
-
     </div>
- 
-
-   
-
     <div class="footer">
         <p>Copyright &copy; WeBlog.com </p>
-       
     </div>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+
+        function sendemail() {
+            Email.send({
+                Host: "smtp.elasticemail.com",
+                Username: "gauravvbisht18@gmail.com",
+                Password: "B89105C53A17155B8044E0450B60ED299363",
+                To: 'gauravbishtgb321@gmail.com',
+                From: document.getElementById("email").value,
+                Subject: "New contact from enquiry",
+                Body: "Name: " + document.getElementById("name").value +
+                    "<br>Phone Number: " + document.getElementById("phone").value +
+                    "<br>Email: " + document.getElementById("email").value +
+                    "<br>Message: " + document.getElementById("message").value
+            }).then(
+                message => alert("Message sent successfully")
+            );
+        }
+    </script>
 </body>
+
 </html>
