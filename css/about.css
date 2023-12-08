@@ -2,7 +2,8 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 20px;
     padding: 0;
-    background-color: #f8f8f8;
+    background-image: url("/img/back.jpeg");
+    color: #fff;
 }
 
 header {
@@ -20,8 +21,24 @@ h2 {
     color: #333;
 }
 
+/* Add a class to style the about section */
+.about-section {
+    background-color: #000; /* Set the background color to black */
+    color: #fff; /* Set text color to white */
+    padding: 20px; /* Add some padding for better spacing */
+    border-radius: 10px; /* Add border-radius for rounded corners */
+}
+
 .founder {
     margin-bottom: 20px;
+}
+
+.nav-right button {
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
 }
 
 .founder img {
@@ -29,7 +46,16 @@ h2 {
     border-radius: 20%;
     margin-right: 10px;
 }
+.about-section h2{
+    color: #00ccff;
+}
 
 .mission {
     margin-top: 30px;
+}
+.about-section p strong {
+    color: #ffcc00; 
+}
+.mission h2 {
+    color: #00ccff;
 }

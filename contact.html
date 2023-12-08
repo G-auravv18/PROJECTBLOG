@@ -14,7 +14,7 @@
 <body>
     <nav class="navigation max-width-1 m-auto">
         <div class="nav-left">
-            <a href="/index.html">
+            <a href="index.html">
                 <span><img src="img/logo.jpeg" width="94px" alt=""></span>
             </a>
             <ul>
@@ -33,53 +33,75 @@
     <div class="max-width-1 m-auto">
         <hr>
     </div>
-    <div class="contact-content font1 max-width-1 m-auto">
-        <div class="max-width-1 m-auto mx-1">
-            <h2>Feel Free to Contact Us : </h2>
-            <div class="contact-form">
-                <form onsubmit="sendemail(); return false;">
-                    <div class="form-box">
-                        <input type="text" id="name" placeholder="Enter Your Name">
-                    </div>
-                    <div class="form-box">
-                        <input type="text" id="phone" placeholder="Enter Your Phone Number">
-                    </div>
-                    <div class="form-box">
-                        <input type="text" id="email" placeholder="Enter Your Email Id">
-                    </div>
-                    <div class="form-box">
-                        <textarea id="message" cols="10" rows="10" placeholder="How may we help you?"></textarea>
-                    </div>
-                    <div class="form-box">
-                        <button type="submit">Submit</button>
-                    </div>
-                </form>
+    <div class="form-container">
+        <form name="submit-to-google-sheet">
+            <input name="email" type="email" placeholder="Email" required>
+            <input name="name" type="text" placeholder="Name">
+            <input name="phone" type="tel" placeholder="Phone Number">
+            <textarea name="message" placeholder="Message" rows="4"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+        
+        <div class="loading js-loading is-hidden">
+            <div class="loading-spinner">
+                <svg><circle cx="25" cy="25" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /></svg>
             </div>
         </div>
+    
+        <p class="js-success-message is-hidden">Success! We'll get in touch soon.</p>
+        <p class="js-error-message is-hidden">Error! Something went wrong. Please try again later.</p>
     </div>
-    <div class="footer">
-        <p>Copyright &copy; WeBlog.com </p>
-    </div>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
-    <script>
+    
 
-        function sendemail() {
-            Email.send({
-                Host: "smtp.elasticemail.com",
-                Username: "gauravvbisht18@gmail.com",
-                Password: "B89105C53A17155B8044E0450B60ED299363",
-                To: 'gauravbishtgb321@gmail.com',
-                From: document.getElementById("email").value,
-                Subject: "New contact from enquiry",
-                Body: "Name: " + document.getElementById("name").value +
-                    "<br>Phone Number: " + document.getElementById("phone").value +
-                    "<br>Email: " + document.getElementById("email").value +
-                    "<br>Message: " + document.getElementById("message").value
-            }).then(
-                message => alert("Message sent successfully")
-            );
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwWTV0_TsAF0zrlsfvdkf8EkQpCgiqhveIdwW6Jt1D1GPaF1uS9nhi_VUrpx2VnvoQ8lA/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const loading = document.querySelector('.js-loading')
+        const successMessage = document.querySelector('.js-success-message')
+        const errorMessage = document.querySelector('.js-error-message')
+    
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            showLoadingIndicator()
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => showSuccessMessage(response))
+                .catch(error => showErrorMessage(error))
+        })
+    
+        function showLoadingIndicator() {
+            form.classList.add('is-hidden')
+            loading.classList.remove('is-hidden')
+        }
+    
+        function showSuccessMessage(response) {
+            console.log('Success!', response)
+            setTimeout(() => {
+                successMessage.classList.remove('is-hidden')
+                loading.classList.add('is-hidden')
+                resetForm(); // Call the function to reset the form
+                // Hide the success message after a delay (adjust the delay as needed)
+                setTimeout(() => {
+                    successMessage.classList.add('is-hidden');
+                }, 3000);
+            }, 500)
+        }
+    
+        function showErrorMessage(error) {
+            console.error('Error!', error.message)
+            setTimeout(() => {
+                errorMessage.classList.remove('is-hidden')
+                loading.classList.add('is-hidden')
+            }, 500)
+        }
+    
+        // Function to reset the form fields
+        function resetForm() {
+            form.reset();
+            form.classList.remove('is-hidden'); // Show the form again
         }
     </script>
+    
+
 </body>
 
 </html>
