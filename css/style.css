@@ -171,3 +171,21 @@ body {
 .home-article-content span {
   color: #333; 
 }
+.submit-article-button {
+  background-color: #4CAF50; 
+  border: none; 
+  color: white; 
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 20px; 
+  margin-top: 10px; 
+  cursor: pointer;
+  border-radius: 5px; 
+}
+
+.submit-article-button:hover {
+  background-color: #45a049; 
+}
